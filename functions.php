@@ -92,30 +92,38 @@ function my_assets_admin(){
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
 
-define("STYLEVERSION", "1.0.1");
-define("SCRIPTVERSION", "1.0.1");
+define("ALLVERSION", "1.0.10");
 
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
 		// Подключение стилей 
 
-		wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), STYLEVERSION, 'all'); //Лайтбокс (стили)
-		wp_enqueue_style("style-slik", get_template_directory_uri()."/css/slick.css", array(), STYLEVERSION, 'all'); //Слайдер (стили)
+		wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), ALLVERSION, 'all'); //Лайтбокс (стили)
 
-		wp_enqueue_style("main-style", get_stylesheet_uri(), array(), STYLEVERSION, 'all' ); // Подключение основных стилей в самом конце
+		//wp_enqueue_style("style-slik", get_template_directory_uri()."/css/slick.css", array(), ALLVERSION, 'all'); //Слайдер (стили)
+
+		wp_enqueue_style("main-style", get_stylesheet_uri(), array(), ALLVERSION, 'all' ); // Подключение основных стилей в самом конце
 
 		// Подключение скриптов
 		
 		wp_enqueue_script( 'jquery');
 
-		wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), SCRIPTVERSION , true); //Модальные окна
-		wp_enqueue_script( 'mask', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), SCRIPTVERSION , true); //маска для инпутов
-		wp_enqueue_script( 'lightbox', get_template_directory_uri().'/js/lightbox.min.js', array(), SCRIPTVERSION , true); //Лайтбокс
-		wp_enqueue_script( 'slick', get_template_directory_uri().'/js/slick.min.js', array(), SCRIPTVERSION , true); //Слайдер
+		wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), ALLVERSION , true); //Модальные окна
+		wp_enqueue_script( 'imasc', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALL_VERSION , true);
+		wp_enqueue_script( 'lightbox', get_template_directory_uri().'/js/lightbox.min.js', array(), ALLVERSION , true); //Лайтбокс
 
-		wp_enqueue_script( 'main', get_template_directory_uri().'/js/main.js', array(), SCRIPTVERSION , true); // Подключение основного скрипта в самом конце
+		//wp_enqueue_script( 'slick', get_template_directory_uri().'/js/slick.min.js', array(), ALLVERSION , true); //Слайдер
+
+		wp_enqueue_script( 'main', get_template_directory_uri().'/js/main.js', array(), ALLVERSION , true); // Подключение основного скрипта в самом конце
+
 		
+		if (is_home()) {
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			
+			wp_enqueue_script( 'vue_form', get_template_directory_uri().'/js/vue_form.js', array(), ALL_VERSION , true);
+		}
 		
 		wp_localize_script( 'main', 'allAjax', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),

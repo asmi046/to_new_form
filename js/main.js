@@ -77,6 +77,7 @@ jQuery(document).ready(function() {
 	jQuery(".gosnomer").inputmask("A999AA99[9]");
 	jQuery(".doc_data_v").inputmask("99.99.9999");
 	jQuery(".doc_data_god").inputmask("9999");
+	
 	// Типовой скрипт для отправки сообщений на почту
 
 

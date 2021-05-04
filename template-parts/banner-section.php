@@ -10,7 +10,10 @@
       </ul>
       <a href="#request-section" class="btn">Оставить заявку</a>
       <div class="decor-element">
-        <img src="<?php echo get_template_directory_uri();?>/img/car.png" class="spacer" alt="">
+        <picture>
+          <source srcset="<?php echo get_template_directory_uri();?>/img/car.webp" type="image/webp">
+          <img src="<?php echo get_template_directory_uri();?>/img/car.png" class="spacer" alt="">
+        </picture>
       </div>
     </div>
   </div>

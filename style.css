@@ -1368,6 +1368,16 @@ Tags: TO,OSAGO
 		max-width: 1115px;
 		margin: 0 auto; }
   
+
+		.request-new-form {
+			position: relative;
+		}
+
+		.request-new-form .control-panel .control-panel__item
+		{
+			width: 100%;
+		}
+
   .input-panel {
 	box-sizing: border-box;
 	border-left: 2px solid #00B0ED;

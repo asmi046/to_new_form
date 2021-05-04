@@ -1,59 +1,37 @@
-<section id = "request-section" class="request-section">
+<section id = "to_form" class="request-section">
     <div class="inner">
         <h2 class="big-title">
-            Заполните заявку
+            {{header_text}}
         </h2>
-        <form class="request-form request-form-to ">
+        <form class="request-form request-new-form request-form-to ">
             <div class="control-panel">
                 <a href="" id = "control-panel_1" class="control-panel__item current">
                     <span class="db step">
-                        Шаг 1
+                        Заявка на ТО
                     </span>
                     <span class="db step-desk">
-                        Информация о владельце
+                        Заполните информацию о ТС и владельце
                     </span>
                 </a>
-                <a href="" id = "control-panel_2" class="control-panel__item">
-                    <span class="db step">
-                        Шаг 2
-                    </span>
-                    <span class="db step-desk">
-                        Информация о машине
-                    </span>
-                </a>
-                <a href="" id = "control-panel_3" class="control-panel__item">
-                    <span class="db step">
-                        Шаг 3
-                    </span>
-                    <span class="db step-desk">
-                        Информация о машине
-                    </span>
-                </a>
-                <a href="" id = "control-panel_4" class="control-panel__item">
-                    <span class="db step">
-                        Шаг 4
-                    </span>
-                    <span class="db step-desk">
-                        Контактные данные
-                    </span>
-                </a>
+                
+    
             </div>
             <div class="input-panel">
                 <div id = "input-panel__step_1" class="input-panel__step active">
                     <div class="row">
                         <div class="input-panel__field-box">
                             <label>
-                                <span class="caption db mandatory">Фамилия</span>
-                                <input type="text" name="lastname" class="inputbox lastname" placeholder="Фамилия" autocomplete="off">
-                                <span class="err-message">
+                                <span class="caption db mandatory">ФИО</span>
+                                <input v-model = "fio"  type="text" name="fio" class="inputbox lastname" placeholder="ФИО*" autocomplete="off">
+                                <span v-show = "fioNoCheced" class="err-message">
                                     Поле заполнено некорректно.
                                 </span>
                             </label>
                         </div>
                         <div class="input-panel__field-box">
                             <label>
-                                <span class="caption db mandatory">Имя</span>
-                                <input type="text" name="name" class="inputbox name" placeholder="Имя" autocomplete="off">
+                                <span class="caption db mandatory">Телефон</span>
+                                <input v-phone type="text" name="phone" class="inputbox phone" placeholder="Телефон" autocomplete="off">
                                 <span class="err-message">
                                     Поле заполнено некорректно.
                                 </span>
@@ -73,6 +51,8 @@
                         <a href="#" class="btn" id = "toStep2">Далее</a>
                     </div>
                 </div>
+
+
                 <div id = "input-panel__step_2" class="input-panel__step ">
                     <div class="row">
                         <div class="input-panel__field-box">

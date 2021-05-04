@@ -16,9 +16,6 @@
   <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri();?>/img/favicons/icon16.png">
   <link rel="icon" type="image/svg+xml" sizes="any" href="<?php echo get_template_directory_uri();?>/images/icons/iconSVG.svg"> 
 
-  <link rel="stylesheet" type="text/css" href="style.css">
-
-
   <?php wp_head();?> 
   <script>
     let toThencsPageUrl = "<?echo get_the_permalink(341); ?>";

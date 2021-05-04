@@ -30,11 +30,11 @@
         </div>
     </footer>
 
-    <script src="js/html5.js"></script>
+    <!-- <script src="js/html5.js"></script>
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/jquery.selectBox.js"></script>
     <script src="js/jquery.maskedinput.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js"></script> -->
 
     <?php wp_footer(); ?>
 
