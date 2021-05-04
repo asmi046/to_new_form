@@ -1,0 +1,52 @@
+{
+  "name": "to_kursk_new_form",
+  "version": "1.0.1",
+  "description": "Новый сайт ТО Курск (Новая форма)",
+  "main": "index.php",
+  "scripts": {
+    "test": "editorconfig-checker",
+    "clear_r": "ssh tehosmyu_all@tehosmyu.beget.tech \"rm  to_osago_nf/public_html/wp-content/themes/to_new/*.*\"",
+    "send_r": "scp -C *.php *.png *.css tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_ms": "scp -C *.css tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_php": "scp -C *.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_head": "scp -C header.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_one": "scp -C single-to.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_cat": "scp -C category.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_singl": "scp -C single.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_index": "scp -C index.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_func": "scp -C functions.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_carbon": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/inc\"",
+    "send_carbon": "scp -C -r inc tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "send_carbon_fild": "scp -C themes-fields.php tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_dir": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/template-parts\"",
+    "send_part": "scp -C -r template-parts tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_img": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/img\"",
+    "send_img": "scp -r img tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_js": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/js\"",
+    "send_js": "scp -r js tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_css": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/css\"",
+    "send_css": "scp -C -r css tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "mk_part_fonts": "ssh tehosmyu_all@tehosmyu.beget.tech \"mkdir -p to_osago_nf/public_html/wp-content/themes/to_new/fonts\"",
+    "send_fonts": "scp -C -r fonts tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/",
+    "group_media": "group-css-media-queries css/main.css css/g_main.css",
+    "send_all": "scp -r * tehosmyu_all@tehosmyu.beget.tech:to_osago_nf/public_html/wp-content/themes/to_new/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmi046/to_new_form"
+  },
+  "keywords": [
+    "wp",
+    "WordPress"
+  ],
+  "author": "Asmi-Studio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asmi046/to_new_form"
+  },
+  "homepage": "https://github.com/asmi046/to_new_form",
+  "dependencies": {
+    "editorconfig-checker": "^3.1.0",
+    "group-css-media-queries": "^1.4.1"
+  }
+}

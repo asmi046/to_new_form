@@ -1,0 +1,13 @@
+<svg id="galka_baner" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="39.333" height="36.782" viewBox="0 0 39.333 36.782">
+  <defs>
+    <linearGradient id="linear-gradient" x1="-0.001" y1="0.5" x2="1.001" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00bcf0"/>
+      <stop offset="0.347" stop-color="#00b9ed"/>
+      <stop offset="0.642" stop-color="#00b2e6"/>
+      <stop offset="0.916" stop-color="#00a6db"/>
+      <stop offset="1" stop-color="#00a1d8"/>
+    </linearGradient>
+  </defs>
+  <ellipse id="Эллипс_4" data-name="Эллипс 4" cx="18.391" cy="18.391" rx="18.391" ry="18.391" transform="translate(0 0)" fill="url(#linear-gradient)"/>
+  <path id="Контур_68" data-name="Контур 68" d="M57.145,69.659a7.82,7.82,0,0,0,5.422-2.232L75.111,54.882a7.829,7.829,0,0,0,0-10.95A7.555,7.555,0,0,0,69.689,41.7a7.82,7.82,0,0,0-5.422,2.232l-7.123,7.123-1.169-1.169a7.555,7.555,0,0,0-5.422-2.232,7.707,7.707,0,0,0-5.422,13.182l6.7,6.7a7.471,7.471,0,0,0,5.315,2.126ZM48.747,53.5a2.49,2.49,0,0,1,1.807-.744,2.774,2.774,0,0,1,1.807.744l2.977,2.977a2.635,2.635,0,0,0,3.614,0l8.93-8.93a2.49,2.49,0,0,1,1.807-.744,2.774,2.774,0,0,1,1.807.744,2.635,2.635,0,0,1,0,3.614L58.952,63.812a2.49,2.49,0,0,1-1.807.744,2.774,2.774,0,0,1-1.807-.744l-6.7-6.7a2.537,2.537,0,0,1,.106-3.614Z" transform="translate(-38.01 -39.361)" fill="#fff"/>
+</svg>

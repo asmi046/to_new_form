@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="345.495" height="39.679" viewBox="0 0 345.495 39.679">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.499" y1="0.033" x2="0.501" y2="1.024" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#00b0ed"/>
+      <stop offset="0.386" stop-color="#00ace9"/>
+      <stop offset="0.713" stop-color="#00a2df"/>
+      <stop offset="1" stop-color="#0092d0"/>
+    </linearGradient>
+  </defs>
+  <path id="Контур_56" data-name="Контур 56" d="M-2172.049,525.864h-292.867c-14.472,0-26.314,8.927-26.314,19.839s11.842,19.84,26.314,19.84h292.867c14.473,0,26.315-8.928,26.315-19.84S-2157.575,525.864-2172.049,525.864Z" transform="translate(2491.229 -525.864)" fill="url(#linear-gradient)"/>
+</svg>
