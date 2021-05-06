@@ -71,7 +71,7 @@ jQuery(document).ready(function() {
 
 	// Сразу маскируем все поля телефонов
 	var inputmask_phone = {"mask": "+7(999)999-99-99"};
-	jQuery("input[type=tel]").inputmask(inputmask_phone);
+	jQuery(".request-form-osago input[type=tel]").inputmask(inputmask_phone);
 
 	var mask_gn = {"mask_gn": "999"};
 	jQuery(".gosnomer").inputmask("A999AA99[9]");

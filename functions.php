@@ -110,7 +110,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		wp_enqueue_script( 'jquery');
 
 		wp_enqueue_script( 'amodal', get_template_directory_uri().'/js/jquery.arcticmodal-0.3.min.js', array(), ALLVERSION , true); //Модальные окна
-		wp_enqueue_script( 'imasc', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALL_VERSION , true);
+		wp_enqueue_script( 'imasc', get_template_directory_uri().'/js/jquery.inputmask.bundle.js', array(), ALLVERSION , true);
 		wp_enqueue_script( 'lightbox', get_template_directory_uri().'/js/lightbox.min.js', array(), ALLVERSION , true); //Лайтбокс
 
 		//wp_enqueue_script( 'slick', get_template_directory_uri().'/js/slick.min.js', array(), ALLVERSION , true); //Слайдер
@@ -119,10 +119,11 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 		
 		if (is_home()) {
-			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALL_VERSION , true);
-			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALLVERSION , true);
+			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALLVERSION , true);
+			wp_enqueue_script( 'datapiker', "https://unpkg.com/@livelybone/vue-datepicker/lib/umd/Datepicker.js", array(), ALLVERSION , true);
 			
-			wp_enqueue_script( 'vue_form', get_template_directory_uri().'/js/vue_form.js', array(), ALL_VERSION , true);
+			wp_enqueue_script( 'vue_form', get_template_directory_uri().'/js/vue_form.js', array(), ALLVERSION , true);
 		}
 		
 		wp_localize_script( 'main', 'allAjax', array(
@@ -461,37 +462,72 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 	}
 
 
-	/* Отправка почты
-		
-			$headers = array(
-				'From: Сайт '.COMPANY_NAME.' <MAIL_RESEND>',
-				'content-type: text/html',
-			);
-		
-			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
-			
-			$adr_to_send = <Присваиваем поле карбона c адресами для отправки>;
-			$mail_content = "<Тело письма>";
-			$mail_them = "<Тема письма>";
 
-			if (wp_mail($adr_to_send, $mail_them, $mail_content, $headers)) {
-				wp_die(json_encode(array("send" => true )));
-			}
-			else {
-				wp_die( 'Ошибка отправки!', '', 403 );
-			}
-	*/
-	
-	
-	/*	Заготовка шорткода
-		function true_url_external( $atts ) {
-			$params = shortcode_atts( array( // в массиве укажите значения параметров по умолчанию
-				'anchor' => 'Миша Рудрастых', // параметр 1
-				'url' => 'https://misha.blog', // параметр 2
-			), $atts );
-			return "<a href='{$params['url']}' target='_blank'>{$params['anchor']}</a>";
-		}
-		add_shortcode( 'trueurl', 'true_url_external' );
-	*/
+add_action( 'wp_ajax_send_to_new', 'send_to_new' );
+add_action( 'wp_ajax_nopriv_send_to_new', 'send_to_new' );
+
+function send_to_new() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+      
+      $headers = array(
+        'From: Сайт Центрстрах <noreply@mirturizma46.ru>',
+        'content-type: text/html',
+      );
+
+
+	   $zak_number = "TO".date("H").date("i").date("s").rand(100,999);
+
+			$message_telegram = 'Запись на ТО c сайта ' . $_SERVER['SERVER_NAME'] 
+					."\nТелефон: ".$_REQUEST["tel"]
+					."\nФИО: ".$_REQUEST["name"]
+					."\nПочта: ".$_REQUEST["email"]
+					."\nГород: ".$_REQUEST["city"]	
+					."\nКатегория ТС: ".$_REQUEST["kategory"]	
+					."\nДата и время: ".$_REQUEST["data"]." ".$_REQUEST["time"]	
+					."\nПункт прохождения: ".$_REQUEST["punct"]
+					."\nЦена: ".$_REQUEST["price"]
+					."\nИдентификатор: ".$zak_number;
+		
+			$arrayXML = array(
+				"name" => $_REQUEST["name"],
+				"phone" => $_REQUEST["tel"],
+				"mail" => $_REQUEST["email"],
+				"price" => $_REQUEST["price"],
+				"city" => $_REQUEST["city"],
+				"category" => $_REQUEST["kategory"],
+				"data" => $_REQUEST["data"]." ".$_REQUEST["time"],
+				"punct" => $_REQUEST["punct"],
+				"id" => $zak_number
+			);
+			
+			$xml = new SimpleXMLElement('<root/>');
+			array_walk_recursive(array_flip($arrayXML), array ($xml, 'addChild'));
+		
+		
+		$rez = file_put_contents(__DIR__."/to1s/".$zak_number.".xml", $xml->asXML());
+		
+		//$fp = fopen("to1s/111.xml", 'w+');
+		//fwrite($fp, $xml->asXML());
+		//fclose($fp);
+		
+		$message_telegram .= "\nRez: ".$fp;
+		
+			
+      message_to_telegram($message_telegram, "ТО");
+    
+      add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+      if (wp_mail(array('toprofi24@yandex.ru,osagoprofi24@yandex.ru,tehosmotr.zayavka@yandex.ru,tehosmotrkursk24@gmail.com,asmi046@gmail.com'), 'Запись On-line', '<strong>Имя:</strong> '.$_REQUEST["name"]. '<br/> <strong>E-mail:</strong> '.$_REQUEST["email"]. ' <br/> <strong>Телефон:</strong> '.$_REQUEST["tel"]. ' <br/> <strong>Город:</strong> '.$_REQUEST["town"]. ' <br/> <strong>Категория ТС:</strong> '.$_REQUEST["catg"]. ' <br/> <strong>Дата и Время:</strong> '.$_REQUEST["stime"]. ' <br/> <strong>Пункт прохождения:</strong> '.$_REQUEST["addrs"]. ' <br/> <strong>Цена:</strong> '.$_REQUEST["summ"]. ' <br/> <strong>Идентификатор:</strong> '.$_REQUEST["bid"], $headers))
+        wp_die("<span style = 'color:green;'>Мы свяжемся с Вами в ближайшее время.</span>");
+      else wp_die("<span style = 'color:red;'>Сервис недоступен попробуйте позднее.</span>");
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
 	
 ?>

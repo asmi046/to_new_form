@@ -1,4 +1,4 @@
-<section class="order-section">
+<section  class="order-section">
   <div class="inner2">
     <h3 class="big-title">
       Порядок предоставления услуги
@@ -7,7 +7,7 @@
       <div class="order_wr">
         <div class="order__item">
           <span class="caption">
-            Заявка онлайн
+            Заявка на запись
           </span>
           <p>
             Заполните форму заявки с внесением всех необходимых данных и отправьте заявку
@@ -29,10 +29,10 @@
       <div class="order_wr">
         <div class="order__item accent">
           <span class="caption">
-            Получение информации о диагностической карте на e-mail
+            Подтверждение записи
           </span>
           <p>
-            Проверьте наличие документа в базе
+           Подтвердите предварительную запись на техосмотр
           </p>
           <div class="decor-element"></div>
         </div>

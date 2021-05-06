@@ -18,7 +18,7 @@
 
   <?php wp_head();?> 
   <script>
-    let toThencsPageUrl = "<?echo get_the_permalink(341); ?>";
+    let toThencsPageUrl = "<?echo get_the_permalink(410); ?>";
     let osagoThencsPageUrl = "<?echo get_the_permalink(343); ?>";
     let agentThencsPageUrl = "<?echo get_the_permalink(345); ?>";
     let comPredlPage = "<?echo get_the_permalink(373); ?>";

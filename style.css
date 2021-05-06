@@ -683,7 +683,9 @@ Tags: TO,OSAGO
 	  position: relative;
 	  float: right;
 	  max-width: 603px;
-	  width: 100%; }
+	  width: 100%; 
+	  min-height: 400px;
+	}
 	  .banner .text-container .decor-element {
 		content: '';
 		position: absolute;
@@ -1472,12 +1474,19 @@ Tags: TO,OSAGO
 		.err-message,
 	  .input-panel .input-panel__step .err-message {
 		position: absolute;
-		botttom: -10px;
 		display: none;
 		font-size: 14px;
 		line-height: 24px;
 		color: red; }
 		
+		
+		.err-message-vue {
+			position: absolute;
+			font-size: 14px;
+			line-height: 24px;
+			color: red; 
+		}
+
 		.consent-mess.error {
 			color: red;
 		}
@@ -1515,9 +1524,10 @@ Tags: TO,OSAGO
 		width: 100%;
 	}
 
+	.error select,
 	.error .inputbox,	
 	  .input-panel .input-panel__step .error .inputbox {
-		border: 1px solid red; }
+		border: 1px solid red!important; }
 		.error .err-message,
 	  .input-panel .input-panel__step .error .err-message {
 		display: block; }
