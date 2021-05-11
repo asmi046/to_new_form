@@ -11,7 +11,7 @@
                     <li><a href="<?echo get_home_url()?>/#services-section">Проверка карты</a></li>
                     <li><a href="<?echo get_the_permalink(347); ?>">ОСАГО</a></li>
                     <li><a href="<?echo get_the_permalink(350); ?>">Сотрудничество</a></li>
-                    <li><a href="<?echo get_category_link(4);?>">Отзывы</a></li>
+                    <li><a href="<?echo get_category_link(412);?>">Личный кабинет</a></li>
                 </ul>
             </nav>
             <div class="footer__item work-time">
@@ -30,11 +30,11 @@
         </div>
     </footer>
 
-    <script src="js/html5.js"></script>
+    <!-- <script src="js/html5.js"></script>
     <script src="js/jquery-3.5.1.js"></script>
     <script src="js/jquery.selectBox.js"></script>
     <script src="js/jquery.maskedinput.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script.js"></script> -->
 
     <?php wp_footer(); ?>
 

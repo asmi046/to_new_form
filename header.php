@@ -17,38 +17,50 @@
   <link rel="icon" type="image/svg+xml" sizes="any" href="<?php echo get_template_directory_uri();?>/images/icons/iconSVG.svg"> 
 
   <?php wp_head();?> 
+
+  <script src="https://securepayments.sberbank.ru/payment/docsite/assets/js/ipay.js"></script>
+   <script>
+     var ipay = new IPAY({api_token: 'o7bp9mkcij0o04qsmh2pknfm6h'});
+   </script>
+
   <script>
+    let kabinet_page = "<?echo get_the_permalink(412); ?>";
     let toThencsPageUrl = "<?echo get_the_permalink(410); ?>";
     let osagoThencsPageUrl = "<?echo get_the_permalink(343); ?>";
     let agentThencsPageUrl = "<?echo get_the_permalink(345); ?>";
     let comPredlPage = "<?echo get_the_permalink(373); ?>";
     let oplataPredl = "<?echo get_the_permalink(376); ?>";
   </script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-181621805-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'UA-181621805-1');
-  </script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-195439311-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-195439311-1');
+</script>
+
+
   <!-- Yandex.Metrika counter -->
-  <script type="text/javascript" >
+<script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-     m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-   ym(68712259, "init", {
-    clickmap:true,
-    trackLinks:true,
-    accurateTrackBounce:true,
-    webvisor:true,
-    ecommerce:"dataLayer"
-  });
+   ym(47031072, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        webvisor:true,
+        ecommerce:"dataLayer"
+   });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/68712259" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/47031072" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+
 </head>
 
 <body>
@@ -57,3 +69,11 @@
   <div class="great-shadow"></div>
 
   <div id="wrapper" class="wrapper">
+
+  <?if (!empty($_COOKIE["agriautorise"])) { ?>
+    <section class = "autorizInfoSection">
+      <div class = "inner">
+        Добрый день: 
+      </div>
+    </section>
+  <?}?>

@@ -11,7 +11,7 @@
                     <li><a href="<?echo get_home_url()?>/#services-section">Проверка карты</a></li>
                     <li><a href="<?echo get_the_permalink(347); ?>">ОСАГО</a></li>
                     <li><a href="<?echo get_the_permalink(350); ?>">Сотрудничество</a></li>
-                    <li><a href="<?echo get_the_permalink(356);?>">Отзывы</a></li>
+                    <li><a href="<?echo get_the_permalink(412);?>">Личный кабинет</a></li>
                 </ul>
             </nav>
             <div class="footer__item work-time">

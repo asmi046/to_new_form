@@ -31,7 +31,7 @@
                         <div class="input-panel__field-box">
                             <label :class = "{error:phoneNoCheced}">
                                 <span class="caption db mandatory">Телефон</span>
-                                <input v-phone  v-model = "phone"  type="tel" name="phone" class="inputbox phone" placeholder="Телефон" autocomplete="off">
+                                <input v-phone  v-model = "phone"  type="tel" name="phone" class="inputbox phone" placeholder="7(___)___-____" autocomplete="off">
                                 <span v-show = "phoneNoCheced" class="err-message-vue">
                                     Поле заполнено некорректно.
                                 </span>
@@ -115,7 +115,7 @@
 
                     </div>
                     <div class="btn-box">
-                        <a @click.prevent = "sendForm" href="#" class="btn" id = "toSendNewForm">Отправить</a>
+                        <a @click.prevent = "sendForm" href="#" class="btn" id = "toSendNewForm">Отправить</a><img class = "spinerForm" v-show = "spinerStart" src = "<?echo get_bloginfo("template_url");?>/img/load-form.svg" />
                     </div>
                 </div>
             </div>

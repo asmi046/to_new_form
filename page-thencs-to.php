@@ -12,7 +12,7 @@ get_header(); ?>
 
 	<main class="main">
 
-		<?php get_template_part('template-parts/banner-section-thencs');?>
+		<?php get_template_part('template-parts/banner-section-thencs-to');?>
 
 		<?php get_template_part('template-parts/order-section');?>
 

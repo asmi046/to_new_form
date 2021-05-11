@@ -1072,6 +1072,9 @@ Tags: TO,OSAGO
 }
 .reviews__title {
 	margin-bottom: 100px;}
+
+
+.text_page_main_section h1,	
 .reviews__title h1 {
 	font-size: 58px;
 	font-weight: 800;
@@ -1534,7 +1537,9 @@ Tags: TO,OSAGO
 	  .input-panel .input-panel__step .btn-box {
 		position: absolute;
 		bottom: 39px;
-		left: 70.6%; }
+		left: 70.6%; 
+		display: flex;
+	}
 	  .input-panel .input-panel__step .btn {
 		display: inline-block;
 		font-size: 20px;
@@ -1716,8 +1721,190 @@ Tags: TO,OSAGO
 
 .banner .text-container-thencs {
 	min-height: 380px;
-  }  
+  }
   
+.text_page_main_section {
+	min-height: 450px;
+}
+
+.text_page_main_section input{
+	display: block;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border: 1px solid #00B0ED;
+    border-radius: 30px;
+    font-family: 'FiraSans-regular', sans-serif;
+    font-size: 18px;
+	margin-bottom: 10px;
+}  
+
+.text_page_main_section a{ 
+	color: #00B0ED;
+}
+
+.text_page_main_section a:hover{ 
+	text-decoration: underline;
+}
+.text_page_main_section .btn,
+.text_page_main_section button{ 
+	min-width: 100px;
+	padding: 0 30px;
+}
+  
+.authoriz__form {
+	width:100%;
+	max-width: 380px;
+	display: flex;
+	flex-direction: column;
+	margin: 30px 0;
+}
+
+.btn_wrapper {
+	width:100%;
+	display: flex;
+	margin: 10px 0;
+	justify-content: space-between;
+}
+
+
+.registre__form .btn_wrapper{
+	flex-direction: column;
+}
+
+.registre__form .btn_wrapper button{
+	margin: 0 0 10px 0;
+	width: 100%;
+}
+
+.passRecoveryWrapper {
+	font-size: 14px;
+}
+
+.messageFormBlk {
+	width: 94%;
+	border-radius: 3px;
+	padding: 10px 3%;
+	color: white;
+	margin-top: 20px;
+	background-color: #DC143C;
+  }
+
+  .messageFormBlk a{ 
+	color: white;
+	text-decoration: underline;
+  }
+  
+  .messageFormBlkOk {
+	background-color: #1dc17b;
+  }
+
+  .dontz {
+	border: 1px solid red!important;  
+  }
+
+.kabinet_control_panel {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    padding: 10px 15px;
+    border: 1px solid #c6d2dd;
+    margin-bottom: 30px;
+    border-radius: 5px;
+	margin: 20px 0;
+}
+
+.kabinet_register_info {
+    display: flex;
+    padding: 0 2% 0 0;
+    color: #a1a1a1;
+}
+
+.controllWrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.controlGrItem::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-size: cover;
+    background-image: url(img/log-out.svg);
+    float: left;
+    margin-right: 5px;
+    margin-top: 6px;
+}
+
+.kabinet_register_info span {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 30px;
+}
+
+.spinerForm {
+	width:40px;
+	height:40px;
+	margin: 10px auto;
+}
+
+.product__row {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.product__row .product__wr {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.personal__row .product {
+    height: 40px;
+    box-shadow: 0 0px 1px 1px #00B0ED;
+    padding-right: 0;
+	max-width: 100%;
+    flex-direction: row;
+    align-items: center;
+	display: flex;
+}
+
+.product__bottom a{
+	color:white
+}
+
+.zakazDetale {
+    width: 100%;
+    margin-top: 20px;
+
+}
+
+.cabinet_wrapper {
+    padding: 10px 2%!important;
+}
+
+.product__row .product .product__price {
+    margin-top: 0;
+    margin-bottom: 0px;
+    margin-left: auto;
+	margin-right: 10px;
+    white-space: nowrap;
+    padding-left: 15px;
+    min-width: 125px;
+    text-align: right;
+}
+
+.btn__zak_repeat {
+	margin-top: 20px;
+}
+
+.autorizInfoSection {
+	background-color: #0078B1;
+	color: white;
+}
+
 @media screen and (max-width: 1440px) {
 	.banner .text-container .decor-element {
 		left: -120%;
@@ -2162,7 +2349,38 @@ Tags: TO,OSAGO
 	  padding-bottom: 60px; }
   
 	.accordion .accordion__head {
-	  font-size: 1.3em; } }
+	  font-size: 1.3em; } 
+	
+	  .kabinet_control_panel {
+		grid-template-columns: 1fr;
+	}
+	
+	.kabinet_register_info {
+		padding: 0;
+		margin-bottom: 10px;
+		flex-direction: column;
+	}
+
+	.personal__row .product {
+		height: auto;
+	}
+
+	.personal__row .product {
+		flex-direction: column;
+		align-items: flex-start;
+		max-width: 100% !important;
+		margin: 0 !important;
+	}
+
+	.product__row .product .product__price {
+		padding-left: 0px;
+		min-width: 100%;
+		text-align: left;
+		margin-bottom: 8px;
+	}s
+
+	}
+
   @media screen and (max-width: 600px) {
   .reviews__card {
   	flex-wrap: wrap;}

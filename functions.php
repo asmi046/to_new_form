@@ -9,12 +9,13 @@ if (empty($_COOKIE["city"])) {
 }
 
 define("COMPANY_NAME", "ТО и ОСАГО");
-define("MAIL_RESEND", "<noreply@tehosago24.ru>");
+define("MAIL_RESEND", "noreply@techosago.ru");
 
 
-define('TELEGRAM_TOKEN_TO', '1277609895:AAG_TP96PFSd3Lp04dleM6I5RT8VjXDySFQ');
+// define('TELEGRAM_TOKEN_TO', '1277609895:AAG_TP96PFSd3Lp04dleM6I5RT8VjXDySFQ');
+define('TELEGRAM_TOKEN_TO', '1890962013:AAGQGjH6aRYEFQMZ7DxwSeuDoJp0OIFWaUs');
 
-define('TELEGRAM_TOKEN_OSAGO', '1339936644:AAFoJC0GEAFdJSxmPKTA8Ei6YMgjDg8KgD0');
+define('TELEGRAM_TOKEN_OSAGO', '1840439504:AAHh02QA2YU7zxVXao-J5aaTCer4rWn1hHs');
 
 function message_to_telegram($text, $chat)
 {
@@ -117,12 +118,14 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 
 		wp_enqueue_script( 'main', get_template_directory_uri().'/js/main.js', array(), ALLVERSION , true); // Подключение основного скрипта в самом конце
 
+		wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALLVERSION , true);
+		wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALLVERSION , true);
 		
-		if (is_home()) {
-			wp_enqueue_script( 'vue', get_template_directory_uri().'/js/vue.js', array(), ALLVERSION , true);
-			wp_enqueue_script( 'axios', get_template_directory_uri().'/js/axios.min.js', array(), ALLVERSION , true);
-			wp_enqueue_script( 'datapiker', "https://unpkg.com/@livelybone/vue-datepicker/lib/umd/Datepicker.js", array(), ALLVERSION , true);
-			
+		if (is_page( array(412) )) {
+			wp_enqueue_script( 'kabinet', get_template_directory_uri().'/js/cabinet.js', array(), ALLVERSION , true);
+		}
+
+		if (is_home()) { 
 			wp_enqueue_script( 'vue_form', get_template_directory_uri().'/js/vue_form.js', array(), ALLVERSION , true);
 		}
 		
@@ -142,7 +145,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		
 		if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
 			$headers = array(
-				'From: '.COMPANY_NAME.' '.MAIL_RESEND,
+				'From: '.COMPANY_NAME.' <'.MAIL_RESEND.'>',
 				'content-type: text/html',
 			);
 
@@ -225,7 +228,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		
 		if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
 			$headers = array(
-				'From: '.COMPANY_NAME.' '.MAIL_RESEND,
+				'From: '.COMPANY_NAME.' <'.MAIL_RESEND.'>',
 				'content-type: text/html',
 			);
 
@@ -398,7 +401,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 		
 		if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
 			$headers = array(
-				'From: '.COMPANY_NAME.' '.MAIL_RESEND,
+				'From: '.COMPANY_NAME.' <'.MAIL_RESEND.'>',
 				'content-type: text/html',
 			);
 
@@ -482,6 +485,9 @@ function send_to_new() {
 	   $zak_number = "TO".date("H").date("i").date("s").rand(100,999);
 
 			$message_telegram = 'Запись на ТО c сайта ' . $_SERVER['SERVER_NAME'] 
+					."\nАгент: ".$_REQUEST["agentname"]
+					."\nТелефон агента: ".$_REQUEST["agentphone"]
+					."\n_________________"
 					."\nТелефон: ".$_REQUEST["tel"]
 					."\nФИО: ".$_REQUEST["name"]
 					."\nПочта: ".$_REQUEST["email"]
@@ -491,8 +497,23 @@ function send_to_new() {
 					."\nПункт прохождения: ".$_REQUEST["punct"]
 					."\nЦена: ".$_REQUEST["price"]
 					."\nИдентификатор: ".$zak_number;
+			
+			$mail_telegram = '<h1>Запись на ТО c сайта ' . $_SERVER['SERVER_NAME']."</h1>" 
+					."<br/>Агент: ".$_REQUEST["agentname"]
+					."<br/>Телефон агента: ".$_REQUEST["agentphone"]
+					."<br/>_________________"
+					."<br/>Телефон: ".$_REQUEST["tel"]
+					."<br/>ФИО: ".$_REQUEST["name"]
+					."<br/>Почта: ".$_REQUEST["email"]
+					."<br/>Город: ".$_REQUEST["city"]	
+					."<br/>Категория ТС: ".$_REQUEST["kategory"]	
+					."<br/>Дата и время: ".$_REQUEST["data"]." ".$_REQUEST["time"]	
+					."<br/>Пункт прохождения: ".$_REQUEST["punct"]
+					."<br/>Цена: ".$_REQUEST["price"]
+					."<br/>Идентификатор: ".$zak_number;
 		
 			$arrayXML = array(
+				"agent" => $_REQUEST["inn"],
 				"name" => $_REQUEST["name"],
 				"phone" => $_REQUEST["tel"],
 				"mail" => $_REQUEST["email"],
@@ -514,20 +535,314 @@ function send_to_new() {
 		//fwrite($fp, $xml->asXML());
 		//fclose($fp);
 		
-		$message_telegram .= "\nRez: ".$fp;
-		
 			
       message_to_telegram($message_telegram, "ТО");
+
+	  // Отправка в базу заказа по ТО
+
+	  global $wpdb;
+	  $wpdb->insert( "shop_zakhistory", array(
+		  "agent" => empty($_COOKIE["agriautorise"])?"":$_COOKIE["agriautorise"],
+		  "zak_number" => $zak_number,
+		  "zak_summ" => $_REQUEST["price"],
+		  "client_name" => $_REQUEST["name"],
+		  "client_phone" => $_REQUEST["tel"],
+		  "client_mail" => $_REQUEST["email"],
+		  "client_data" => $_REQUEST["data"],
+		  "client_time" => $_REQUEST["time"],
+		  "client_city" => $_REQUEST["city"],
+		  "client_ts_kat" => $_REQUEST["kategory"],
+		  "punkt_to" => $_REQUEST["punct"],
+	  ) );
     
       add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
-      if (wp_mail(array('toprofi24@yandex.ru,osagoprofi24@yandex.ru,tehosmotr.zayavka@yandex.ru,tehosmotrkursk24@gmail.com,asmi046@gmail.com'), 'Запись On-line', '<strong>Имя:</strong> '.$_REQUEST["name"]. '<br/> <strong>E-mail:</strong> '.$_REQUEST["email"]. ' <br/> <strong>Телефон:</strong> '.$_REQUEST["tel"]. ' <br/> <strong>Город:</strong> '.$_REQUEST["town"]. ' <br/> <strong>Категория ТС:</strong> '.$_REQUEST["catg"]. ' <br/> <strong>Дата и Время:</strong> '.$_REQUEST["stime"]. ' <br/> <strong>Пункт прохождения:</strong> '.$_REQUEST["addrs"]. ' <br/> <strong>Цена:</strong> '.$_REQUEST["summ"]. ' <br/> <strong>Идентификатор:</strong> '.$_REQUEST["bid"], $headers))
-        wp_die("<span style = 'color:green;'>Мы свяжемся с Вами в ближайшее время.</span>");
+      if (wp_mail(carbon_get_theme_option('to_main_sendmail'), 'Запись On-line', $mail_telegram, $headers))
+        wp_die(json_encode(array("zn" => $zak_number)));
       else wp_die("<span style = 'color:red;'>Сервис недоступен попробуйте позднее.</span>");
       
     } else {
       wp_die( 'НО-НО-НО!', '', 403 );
     }
   }
+
+  
+  //-----------------------Личный кабинет--------------------------
+
+add_action( 'wp_ajax_user_register', 'user_register' );
+add_action( 'wp_ajax_nopriv_user_register', 'user_register' );
+
+  function user_register() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		global $wpdb;
+	  	
+		$email_key = rand(10000, 99999);
+
+		$insert_rez = $wpdb->insert( "shop_users", array(
+			"name" => $_REQUEST["name"],
+			"company_name" => $_REQUEST["nameorg"],
+			"mail" => $_REQUEST["email"],
+			"phone" => $_REQUEST["tel"],
+			"inn" => $_REQUEST["inn"],
+			"password" => md5($_REQUEST["password"]."agrib"),
+			"autorize" => 0,
+			"autorizeKey" => $email_key
+		) );
+
+		if (!empty($insert_rez)) {
+			$headers = array(
+				'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>', 
+				'content-type: text/html',
+			);
+		  
+			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+	   
+			$mail_message = 
+			"<h1>Подтверждение регистрации в личном кабинете Agribest.ru</h1>".
+			"<p>Уважаемый клиент, для подтверждения учетной записи перейдите по ссылке:<p>".
+			"<a href = '".get_the_permalink(416)."?id=".$wpdb->insert_id."&k=".$email_key."'>Активировать учетную запись.</a>";
+	  
+			if (wp_mail($_REQUEST["email"], "Подтверждение регистрации", $mail_message, $headers))
+			{
+				$mail_message = 
+				"<h1>В личном кабинете зарегистрированна компания:</h1>".
+				"Представитель: <strong>".$_REQUEST["name"]."</strong> <br/>".
+				"Организация: <strong>".$_REQUEST["nameorg"]."</strong> <br/>".
+				"ИНН: <strong>".$_REQUEST["inn"]."</strong> <br/>".
+				"E-mail: <strong>".$_REQUEST["email"]."</strong> <br/>".
+				"Телефон: <strong>".$_REQUEST["tel"]."</strong> <br/>";
+
+				wp_mail(carbon_get_theme_option( 'to_main_sendmail' ), "Регистрация в личном кабинете", $mail_message, $headers);
+
+				wp_die(json_encode(array("send" => true )));
+			}
+			else 
+			 	wp_die( 'Mail no send!'.$mail_message, '', 403 );	
+
+		} else {
+			wp_die( 'Bad insert to base!', '', 403 );		
+		}
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_pass_rec', 'pass_rec' );
+add_action( 'wp_ajax_nopriv_pass_rec', 'pass_rec' );
+
+  function pass_rec() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		global $wpdb;
+	  	
+		$email_key = rand(1000, 9999);
+
+		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$_REQUEST["email"]."'");
+		if (!empty($user_feeld)) {
+			
+			$updateRez = $wpdb->update("shop_users",
+                                   array(
+									   "autorizeKey" => $email_key,
+                                   ), 
+                                   array(
+                                       "id" => $user_feeld[0]->id, 
+                                   )
+                                );   
+
+			$headers = array(
+				'From: Сайт '.COMPANY_NAME.' <'.MAIL_RESEND.'>', 
+				'content-type: text/html',
+			);
+		  
+			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
+	   
+			$mail_message = 
+			"<h1>Восстановление пароля</h1>".
+			"<p>Для восстановления пароля к Вашей учетной записи перейдите по ссылке:<p>".
+			"<a href = '".get_the_permalink(418)."?id=".$user_feeld[0]->id."&k=".$email_key."'>Восстановить пароль.</a>";
+	  
+			if (wp_mail($user_feeld[0]->mail, "Восстановление пароля", $mail_message, $headers))
+			{
+				wp_die(json_encode(array("send" => true )));
+			}
+			else 
+			 	wp_die( 'Mail no send!', '', 403 );	
+
+		} else {
+			wp_die( 'No user in base!', '', 403 );		
+		}
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+
+add_action( 'wp_ajax_user_autorization', 'user_autorization' );
+add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
+
+  function user_autorization() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		$mail = $_REQUEST["email"];
+		$password = $_REQUEST["password"];
+		$passwordSalt = md5($_REQUEST["password"]."agrib");
+
+		$token = rand(200000, 300000);
+
+		global $wpdb;
+		$user_feeld =  $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$mail."' AND `password` =  '".$passwordSalt."'");
+
+		if (!empty($user_feeld)) {
+			if (empty($user_feeld[0]->autorize))
+				wp_die(json_encode(array("error" => "Учетная запись не активирована. Проверьте e-amil в том числе и папку 'Спам'" )), '', 403);
+			
+			$updateRez = $wpdb->update("shop_users",
+				array(
+					"autorizeKey" => $token,
+				), 
+				array(
+					"id" => $user_feeld[0]->id, 
+				)
+			 );   
+
+			wp_die(json_encode(array(
+				"name" => $user_feeld[0]->name,
+				"company_name" => $user_feeld[0]->company_name,
+				"mail" => $user_feeld[0]->mail,
+				"phone" => $user_feeld[0]->phone,
+				"inn" => $user_feeld[0]->inn,
+				"token" => $token
+			)));
+			
+
+		} else {
+			wp_die(json_encode(array("error" => "Пользователь с таким E-mail не найден.", "q" => "" )), '', 403);
+		}
+
+    	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_relogin', 'relogin' );
+add_action( 'wp_ajax_nopriv_relogin', 'relogin' );
+
+  function relogin() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$mail = $_REQUEST["email"];
+		
+		global $wpdb;
+
+		
+		$updateRez = $wpdb->update("shop_users",
+				array(
+					"autorizeKey" => 0,
+				), 
+				array(
+					"mail" => $mail, 
+				)
+			 );  
+			 wp_die(json_encode(array("dell"=> true))); 
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_get_zakinfo', 'get_zakinfo' );
+add_action( 'wp_ajax_nopriv_get_zakinfo', 'get_zakinfo' );
+
+  function get_zakinfo() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$token = $_COOKIE["agritoken"];
+		$email = $_COOKIE["agriautorise"];
+		
+
+		global $wpdb;
+		$userVerefy = $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$email."' AND `autorizeKey` = '".$token."'");
+
+		if (empty($userVerefy)) {
+			wp_die(json_encode(array("error"=> "Верификация не пройденав")), '', 403); 
+		}
+
+		$klientZak = $wpdb->get_results("SELECT * FROM `shop_zakhistory` WHERE `agent` = '".$email."'");
+
+		$compileResult = array();
+
+		foreach($klientZak as $elem)
+			$compileResult[$elem->zak_number] = array(
+				"zak_info" => $elem,
+				"open_detale" => false,
+				"zak_detale" => array()
+			);	 
+
+		wp_die(json_encode($compileResult)); 	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
+add_action( 'wp_ajax_get_zak_detail', 'get_zak_detail' );
+add_action( 'wp_ajax_nopriv_get_zak_detail', 'get_zak_detail' );
+
+  function get_zak_detail() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$token = $_COOKIE["agritoken"];
+		$email = $_COOKIE["agriautorise"];
+		
+
+		global $wpdb;
+		$userVerefy = $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$email."' AND `autorizeKey` = '".$token."'");
+
+		if (empty($userVerefy)) {
+			wp_die(json_encode(array("error"=> "Верификация не пройденав")), '', 403); 
+		}
+
+		$klientZakDetale = $wpdb->get_results("SELECT * FROM `shop_zaktovar` WHERE `zak_number` = '".$_REQUEST["zaknumber"]."'");
+	 
+
+		wp_die(json_encode($klientZakDetale)); 	
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
+
 
 	
 ?>

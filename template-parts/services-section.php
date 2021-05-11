@@ -19,7 +19,7 @@
                 <p class="service__desk">
                     Вы можете убедиться в легитимности Вашей диагностической карты и проверить ее по базе ЕАИСТО ГИБДД
                 </p>
-                <a target="_blank" href="https://eaisto.info/" class="btn upp">ЕАИСТО</a>
+                <a target="_blank" href="//eaisto.info" class="btn upp">ЕАИСТО</a>
             </div>
         </div>
     </div>

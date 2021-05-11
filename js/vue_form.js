@@ -9,7 +9,7 @@ Vue.directive('phone', {
         const x = value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,4})/)
 
         if (!x[2] && x[1] !== '') {
-          val = (x[1] === '8' || x[1] === '7') ? x[1] : '8' + x[1]
+          val = (x[1] === '8' || x[1] === '7') ? x[1] : '7' + x[1]
         } else {
           val = !x[3] ? x[1] + x[2] : x[1] + '(' + x[2] + ') ' + x[3] + (x[4] ? '-' + x[4] : '')
         }
@@ -20,7 +20,7 @@ Vue.directive('phone', {
       function replaceNumberForPaste(value) {
         const r = value.replace(/\D/g, '')
         let val = r
-        if (val.charAt(0) === '7') {
+        if ((val.charAt(0) === '7')||(val.charAt(0) === '+')) {
           val = '7' + val.slice(1)
         }
         return replaceNumberForInput(val)
@@ -67,6 +67,7 @@ let to_form = new Vue({
         price: "",
 
         totalNoCheced:false,
+        spinerStart:false,
 
         feildInfo: {
           "Курск": {
@@ -203,6 +204,7 @@ let to_form = new Vue({
 
         sendForm() {
             this.totalNoCheced = false;
+            
 
             if (this.fio == "") {this.fioNoCheced = true; this.totalNoCheced = true;}
             if (this.phone == "") {this.phoneNoCheced = true; this.totalNoCheced = true;}
@@ -213,7 +215,11 @@ let to_form = new Vue({
             if (this.time == "") {this.timeNoCheced = true;  this.totalNoCheced = true;}
             if (this.punct == "") {this.punctNoCheced = true;  this.totalNoCheced = true;}
           
+            
+
             if (!this.totalNoCheced) {
+                this.spinerStart = true;
+
                 var params = new URLSearchParams();
                 params.append('action', 'send_to_new');
                 params.append('nonce', allAjax.nonce);
@@ -227,14 +233,20 @@ let to_form = new Vue({
                 params.append('time', this.time);
                 params.append('punct', this.punct);
                 params.append('price', this.price);
+                params.append('agentphone', localStorage.getItem('phone'));
+                params.append('agentname', localStorage.getItem('name'));
+                params.append('agentcompany', localStorage.getItem('company_name'));
+                params.append('agentinn', localStorage.getItem('inn'));
     
                 axios.post(allAjax.ajaxurl, params)
-                  .then(function (response) {
-                    window.location.href = toThencsPageUrl;
+                  .then( (response) => {
+                    window.location.href = toThencsPageUrl+"?n="+this.fio+"&t="+this.phone+"&ml="+this.mail+"&sm="+this.price+"&zn="+response.data.zn;
+                    this.spinerStart = false;
                   })
-                  .catch(function (error) {
+                  .catch((error) => {
                     console.log(error);
                     alert(error);
+                    this.spinerStart = false;
                   }); 
             } 
         }
