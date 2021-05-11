@@ -70,10 +70,3 @@
 
   <div id="wrapper" class="wrapper">
 
-  <?if (!empty($_COOKIE["agriautorise"])) { ?>
-    <section class = "autorizInfoSection">
-      <div class = "inner">
-        Добрый день: 
-      </div>
-    </section>
-  <?}?>

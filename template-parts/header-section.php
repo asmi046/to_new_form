@@ -1,4 +1,5 @@
 <header id="header" class="header lock-padding">
+    <?php get_template_part('template-parts/head-autorise-section');?>
     <div class="header__top">
         <div class="inner">
             <a href="<?echo get_home_url()?>" class="main-logo header__top__item">
