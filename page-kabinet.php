@@ -100,6 +100,10 @@ get_header(); ?>
 						<span class="company_mail">
 							<strong>e-mail: </strong> {{email}}
 						</span>
+
+						<span class="company_admin_stata">
+							<a @click.prevent = "toStat" href ="#">Статистика</a>
+						</span>
 					</div>
 					<div class ="controllWrapper">
 						<a @click.prevent = "relogin" class = "controlGrItem" href = "">Выйти из кабинета</a> 
@@ -141,6 +145,34 @@ get_header(); ?>
 		</section>
 	</template>
 
+	<template id = "statistic">
+		<section class = "personal content">
+			<div class="inner">
+				<h1>Статистика</h1>
+				<a @click.prevent = "toKabinet" href="#" class="goToKabinet">&larr; Вернуться в кабинет</a>
+				<table class = "statTable">
+					<thead>
+						<tr>
+							<th>Агент</th>
+							<th>ИНН</th>
+							<th>№ заказа</th>
+							<th>Цена</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></th>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</section>
+	</template>	
+
 	<main class="main">	
 		<section class = "text_page_main_section">
             <div class="inner" id = "main_cabinet">
@@ -148,6 +180,7 @@ get_header(); ?>
                 <registration v-show="showRegistration" ></registration>
                 <passrec v-show="showPassRec" ></passrec>
                 <kabinet v-show="showKabinet"></kabinet>
+                <statistic v-show="showStat"></statistic>
             </div>
         </section>
     </main>

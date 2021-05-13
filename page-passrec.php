@@ -34,6 +34,13 @@ get_header(); ?>
 			<?
                     if (isset($_REQUEST["pass_rec_sub"]))  
                     {
+                    if ($user_feeld[0]->autorize == 0) {
+                            ?>
+                                <div class = "messageFormBlk">
+                                    Пользователь не активирован!
+                                </div>
+                            <?
+                    } else
                     if (empty($_REQUEST["password1"])||empty($_REQUEST["password2"])) {
                         ?>
                             <div class = "messageFormBlk">

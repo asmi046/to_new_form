@@ -41,6 +41,9 @@ Vue.directive('phone', {
     }
 })
 
+
+
+
 Vue.component('autorisation', {
     template: '#autorisation',
     data: function(){
@@ -183,7 +186,7 @@ Vue.component('registration', {
 
             axios.post(allAjax.ajaxurl, params)
               .then((response) => {
-                this.messageText = "Вы успешно зарегистрировались. На емейл указанный при регистрации отправленно письмо с подтверждением регистрации, для использования личного кабинета перейдите по ссылке из письма.";
+                this.messageText = "Вы успешно зарегистрировались. В течение 3 часов наши менеджеры активируют Вашу учетную запись.";
                 this.showMsgBlk = true;
                 this.msgOk = true;
               })
@@ -243,6 +246,28 @@ Vue.component('passrec', {
     }
 });
 
+
+Vue.component('statistic', {
+  template: '#statistic',
+  data: function(){
+      return{
+          email:""
+      }
+  }, 
+
+  created: function() {
+
+  },
+
+
+
+  methods:{ 
+    toKabinet() {
+      eventBus.$emit("chenge-state","kabinet");
+    },
+  }
+});
+
 Vue.component('kabinet', {
     template: '#kabinet',
     data: function(){
@@ -270,6 +295,10 @@ Vue.component('kabinet', {
     },
     
     methods: { 
+
+        toStat() {
+          eventBus.$emit("chenge-state","stat");
+        },
 
         loadClientInfo() {
             this.name = localStorage.getItem("name");
@@ -315,28 +344,6 @@ Vue.component('kabinet', {
 
         getZakDetales(zknumber) {
             this.UsserZakaz[zknumber].open_detale = !this.UsserZakaz[zknumber].open_detale;
-
-            // let params = new URLSearchParams();
-            // params.append('action', 'get_zak_detail');
-            // params.append('nonce', allAjax.nonce);
-            // params.append('zaknumber', zknumber);
-
-            // if (this.UsserZakaz[zknumber].zak_detale.length == 0) {
-            //     axios.post(allAjax.ajaxurl, params)
-            //     .then((response) => {
-            //         console.log(response.data); 
-            //         console.log(this.UsserZakaz[zknumber]); 
-                    
-            //         this.UsserZakaz[zknumber].open_detale = !this.UsserZakaz[zknumber].open_detale;
-            //         this.UsserZakaz[zknumber].zak_detale = response.data;
-                    
-            //     })
-            //     .catch((error)  => {
-            //         alert("Во время получения данных произошла ошибка! ");
-            //     });
-            // } else {
-            //     this.UsserZakaz[zknumber].open_detale = !this.UsserZakaz[zknumber].open_detale;
-            // }
         },
 
         getZakInfo() {
@@ -367,7 +374,8 @@ let cabinet = new Vue({
         showAutorize:true,
         showRegistration:false,
         showPassRec:false,
-        showKabinet:false
+        showKabinet:false,
+        showStat:false,
     },
     
     created: function() {
@@ -384,7 +392,12 @@ let cabinet = new Vue({
 
         updateState() {
             if (getCookie("agriautorise") != undefined) {
+              let state = localStorage.getItem('kabinetstate');  
+              if (state == undefined)
                 this.chengeState("kabinet");
+              else  
+                this.chengeState(state);
+
             } else {
                 this.chengeState("autorization");
                 
@@ -397,11 +410,15 @@ let cabinet = new Vue({
             this.showRegistration = false;
             this.showPassRec = false;
             this.showKabinet = false;
+            this.showStat = false;
 
-            if (state == "register") this.showRegistration = true;
-            if (state == "autorization") this.showAutorize = true;
-            if (state == "passrec") this.showPassRec = true;
-            if (state == "kabinet") this.showKabinet = true;
+            localStorage.removeItem('kabinetstate'); 
+
+            if (state == "register") { this.showRegistration = true; localStorage.setItem('kabinetstate', "register"); }
+            if (state == "autorization") { this.showAutorize = true; localStorage.setItem('kabinetstate', "autorization"); }
+            if (state == "passrec") { this.showPassRec = true; localStorage.setItem('kabinetstate', "passrec"); }
+            if (state == "kabinet") { this.showKabinet = true; localStorage.setItem('kabinetstate', "kabinet"); }
+            if (state == "stat") { this.showStat = true; localStorage.setItem('kabinetstate', "stat"); }
         }
     }
 });

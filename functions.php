@@ -93,7 +93,7 @@ function my_assets_admin(){
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
 
-define("ALLVERSION", "1.0.10");
+define("ALLVERSION", "1.0.14");
 
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
@@ -602,11 +602,15 @@ add_action( 'wp_ajax_nopriv_user_register', 'user_register' );
 			add_filter('wp_mail_content_type', create_function('', 'return "text/html";'));
 	   
 			$mail_message = 
-			"<h1>Подтверждение регистрации в личном кабинете Agribest.ru</h1>".
-			"<p>Уважаемый клиент, для подтверждения учетной записи перейдите по ссылке:<p>".
+			"<h1>Подтверждение регистрации в личном кабинете Techosago.ru</h1>".
+			"<p>Клиент: ".$_REQUEST["name"]."</p>".
+			"<p>Компания: ".$_REQUEST["nameorg"]."</p>".
+			"<p>e-mail: ".$_REQUEST["email"]."</p>".
+			"<p>ИНН: ".$_REQUEST["inn"]."</p>".
+			"<p>Для подтверждения учетной записи перейдите по ссылке:<p>".
 			"<a href = '".get_the_permalink(416)."?id=".$wpdb->insert_id."&k=".$email_key."'>Активировать учетную запись.</a>";
 	  
-			if (wp_mail($_REQUEST["email"], "Подтверждение регистрации", $mail_message, $headers))
+			if (wp_mail(carbon_get_theme_option( 'to_main_sendmail' ), "Подтверждение регистрации", $mail_message, $headers))
 			{
 				$mail_message = 
 				"<h1>В личном кабинете зарегистрированна компания:</h1>".

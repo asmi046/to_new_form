@@ -52,6 +52,11 @@ Tags: TO,OSAGO
   img, input, textarea, button, a {
 	border: none;
 	outline: none; }
+
+	input, textarea, select {
+		-webkit-appearance: none;
+	}
+	
   
   input, textarea, button, .btn {
 	font-family: 'FiraSans-regular', sans-serif;
@@ -903,6 +908,31 @@ Tags: TO,OSAGO
 	padding-bottom: 72px;
 	box-sizing: border-box;
 	padding-left: 4%; }
+
+.inform-section ul{
+	width: 100%;
+}
+
+.inform-section ul{
+	width: 100%;
+}
+
+.inform-section ul li{
+	width: 100%;
+	margin: 5px 0;
+}
+
+.inform-section ul li::before{
+	content: "";
+	width: 8px;
+	height: 8px;
+	background-color: #00B0ED;
+	float: left;
+	margin-right: 14px;
+	margin-top: 13px;
+}
+
+
 	.inform-section .inform-box {
 	  z-index: 50;
 	  position: relative;
@@ -917,7 +947,7 @@ Tags: TO,OSAGO
 	  position: absolute;
 	  z-index: 40;
 	  right: -15.2%;
-	  bottom: -30%;
+	  bottom: -10%;
 	  width: 710px;
 	  height: 695px;
 	  background-image: url(img/inform-section_decore-elem.png);
@@ -1318,7 +1348,7 @@ Tags: TO,OSAGO
 
 
   .request-section {
-	margin-bottom: 141px; }
+	margin-bottom: 60px; }
   
   .request-form {
 	box-sizing: border-box;
@@ -1923,6 +1953,28 @@ Tags: TO,OSAGO
 	margin-right: 5px;
 	background-image: url(img/user.svg);
 	margin-top: 6px;
+}
+
+.statTable {
+	width: 100%;
+	text-align: left;
+	margin-top: 20px;
+}
+
+table {
+	border-top: 1px solid  #c6d2dd;
+	border-left: 1px solid  #c6d2dd;
+}
+
+td, th {
+	border-bottom: 1px solid  #c6d2dd;
+	border-right: 1px solid  #c6d2dd;
+	padding: 3px 10px;
+}
+
+.goToKabinet{
+	margin-top: 10px;
+    display: inline-block;
 }
 
 @media screen and (max-width: 1440px) {
@@ -2549,13 +2601,11 @@ Tags: TO,OSAGO
 			top: 9px;
 			left: 0; }
   
-	.inform-section {
-	  text-align: center; }
+
 	  .inform-section .decore-elem {
 		width: 620px; }
   
-	.inform-section .inform-box .big-title {
-	  text-align: center; }
+
   
 	.request-form .control-panel {
 	  display: flex;
@@ -2635,7 +2685,7 @@ Tags: TO,OSAGO
 	  #header .header__bottom .main-menu ul {
 		padding: 10px 15px; }
 		.banner {
-	  padding-top: 80px; }
+	  padding-top: 0; }
 	   }
   @media screen and (max-width: 400px) {
   	.city_vsp_vin .qq_btn .yes_no_btn {
@@ -2714,8 +2764,9 @@ Tags: TO,OSAGO
 } }
 
 @media screen and (max-width: 350px) {
-#header .header__top .inner .burger-btn {
-	  top: 20px; } }
+
+	
+}
 
   select,
   .selectBox {

@@ -9,9 +9,9 @@
 
 		<?php get_template_part('template-parts/order-section');?>
 
-		<?php get_template_part('template-parts/advantages-section');?>
-
 		<?php get_template_part('template-parts/request-section');?>
+
+		<?php get_template_part('template-parts/advantages-section');?>
 
 		<?php get_template_part('template-parts/inform-section');?>
 
