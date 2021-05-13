@@ -1466,7 +1466,7 @@ Tags: TO,OSAGO
 		position: relative;
 		top: 3px; }
 	  .input-panel .input-panel__step .caption {
-		font-size: 18px;
+		font-size: 14px;
 		line-height: 24px;
 		box-sizing: border-box;
 		margin-bottom: 10px; 
@@ -1958,7 +1958,7 @@ Tags: TO,OSAGO
 .statTable {
 	width: 100%;
 	text-align: left;
-	margin-top: 20px;
+	margin: 20px 0;
 }
 
 table {
@@ -2104,7 +2104,7 @@ td, th {
 	  padding: 0 1%; } }
   @media screen and (max-width: 1050px) {
 	.input-panel .input-panel__step label .caption {
-	  font-size: 16px;
+	  font-size: 14px;
 	  line-height: 20px;
 	  margin-bottom: 8px; }
   

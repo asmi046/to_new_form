@@ -80,6 +80,7 @@ Vue.component('autorisation', {
      
             document.cookie = "agriautorise=0; path=/; max-age=0";
             document.cookie = "agritoken=0; path=/; max-age=0";
+            document.cookie = "adm=0; path=/; max-age=0";
 
             localStorage.removeItem('name'); 
             localStorage.removeItem('company_name'); 
@@ -120,6 +121,7 @@ Vue.component('autorisation', {
 
                 document.cookie = "agriautorise="+response.data.mail+"; path=/; expires=" + d.toUTCString();
                 document.cookie = "agritoken="+response.data.token+"; path=/; expires=" + d.toUTCString();
+                document.cookie = "adm="+response.data.admin+"; path=/; expires=" + d.toUTCString();
 
                 localStorage.setItem('name', response.data.name); 
                 localStorage.setItem('company_name', response.data.company_name); 
@@ -251,12 +253,17 @@ Vue.component('statistic', {
   template: '#statistic',
   data: function(){
       return{
-          email:""
+          statData:[],
       }
   }, 
 
-  created: function() {
-
+  mounted: function() {
+    eventBus.$on("stat_innit", ()=>{
+      this.getStat(); 
+    });
+    if (getCookie("agriautorise") != undefined) {
+      this.getStat();
+    }
   },
 
 
@@ -265,6 +272,25 @@ Vue.component('statistic', {
     toKabinet() {
       eventBus.$emit("chenge-state","kabinet");
     },
+
+    getStat() {
+          let params = new URLSearchParams();
+          params.append('action', 'get_stat');
+          params.append('nonce', allAjax.nonce);
+          params.append('email', localStorage.getItem('mail'));
+
+          
+
+          axios.post(allAjax.ajaxurl, params)
+            .then((response) => {
+              this.statData = response.data;  
+                
+            })
+            .catch((error)  => {
+              alert("Во время получения статистики произошла ошибка! "+error.response.data.error );
+              
+            });
+    }
   }
 });
 
@@ -276,19 +302,29 @@ Vue.component('kabinet', {
             name:"",      
             company:"",      
             inn:"",      
-            email:""      
+            email:"",
+            showStatLnk:true      
         }
     },
     mounted: function() {
         eventBus.$on("cabinet_innit", ()=>{
             this.getZakInfo(); 
             this.loadClientInfo(); 
+            if (getCookie("adm") == 1) 
+              this.showStatLnk = true;
+            else this.showStatLnk = false;
+
         }); 
         
 
         if (getCookie("agriautorise") != undefined) {
             this.getZakInfo();
         }
+
+        if (getCookie("adm") == 1) 
+          this.showStatLnk = true;
+          
+         else this.showStatLnk = false;
 
         this.loadClientInfo();
          
@@ -297,7 +333,9 @@ Vue.component('kabinet', {
     methods: { 
 
         toStat() {
+          
           eventBus.$emit("chenge-state","stat");
+          eventBus.$emit("stat_innit");
         },
 
         loadClientInfo() {
@@ -356,8 +394,9 @@ Vue.component('kabinet', {
 
             axios.post(allAjax.ajaxurl, params)
               .then((response) => {
-                  console.log(response);
+                  
                   this.UsserZakaz  = response.data; 
+                  console.log(this.UsserZakaz);
               })
               .catch((error)  => {
                 alert("Во время получения данных произошла ошибка!");
@@ -383,6 +422,8 @@ let cabinet = new Vue({
             this.chengeState(state); 
         });
         
+
+
         window.addEventListener('focus', this.updateState);
         this.updateState();
     },

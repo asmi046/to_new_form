@@ -101,7 +101,7 @@ get_header(); ?>
 							<strong>e-mail: </strong> {{email}}
 						</span>
 
-						<span class="company_admin_stata">
+						<span v-if = "showStatLnk" class="company_admin_stata">
 							<a @click.prevent = "toStat" href ="#">Статистика</a>
 						</span>
 					</div>
@@ -153,22 +153,23 @@ get_header(); ?>
 				<table class = "statTable">
 					<thead>
 						<tr>
-							<th>Агент</th>
+							<th>Агент </th>
 							<th>ИНН</th>
 							<th>№ заказа</th>
+							<th>Дата заказа</th>
 							<th>Цена</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-							<td></th>
-							<td></td>
-							<td></td>
+						<tr v-for = "(item, index, key) in statData" >
+							<td>{{item.company_name}}</td>
+							<td>{{item.inn}}</th>
+							<td>{{item.zak_number}}</td>
+							<td>{{item.zak_data}}</td>
+							<td>{{item.zak_summ}}</td>
 						</tr>
 					</tbody>
 				</table>
-
 			</div>
 		</section>
 	</template>	

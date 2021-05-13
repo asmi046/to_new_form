@@ -50,7 +50,7 @@
 
                         <div class="input-panel__field-box">
                             <label :class = "{error:dataNoCheced}">
-                                <span class="caption db mandatory">Дата прохождения</span>
+                                <span class="caption db mandatory">Дата прохождения (кроме Вс.)</span>
                             
                                 <input v-model = "data" type="date" name="prdata" class="inputbox prdata" placeholder="дд.мм.гггг" autocomplete="off">
                                 <span v-show = "dataNoCheced" class="err-message-vue">
@@ -60,9 +60,9 @@
                         </div>
                         <div class="input-panel__field-box">
                             <label :class = "{error:timeNoCheced}">
-                                <span class="caption db mandatory">Время прохождения</span>
+                                <span class="caption db mandatory">Выберите время (с 9:00 до 17:30)</span>
                                 
-                                <input v-model ="time" type="time" name="prtime" class="inputbox prtime" placeholder="чч.мм" autocomplete="off">
+                                <input v-model ="time" type="time" min = "09:00" max = "17:30" name="prtime" class="inputbox prtime" placeholder="чч.мм" autocomplete="off">
                                 <span v-show = "timeNoCheced" class="err-message-vue">
                                     Выберите время прохождения ТО.
                                 </span>

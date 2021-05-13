@@ -93,7 +93,7 @@ function my_assets_admin(){
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
 
-define("ALLVERSION", "1.0.14");
+define("ALLVERSION", "1.0.17");
 
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
@@ -732,7 +732,8 @@ add_action( 'wp_ajax_nopriv_user_autorization', 'user_autorization' );
 				"mail" => $user_feeld[0]->mail,
 				"phone" => $user_feeld[0]->phone,
 				"inn" => $user_feeld[0]->inn,
-				"token" => $token
+				"token" => $token,
+				"admin" => $user_feeld[0]->admin
 			)));
 			
 
@@ -847,6 +848,39 @@ add_action( 'wp_ajax_nopriv_get_zak_detail', 'get_zak_detail' );
     }
   }
 
+add_action( 'wp_ajax_get_stat', 'get_stat' );
+add_action( 'wp_ajax_nopriv_get_stat', 'get_stat' );
+
+  function get_stat() {
+    if ( empty( $_REQUEST['nonce'] ) ) {
+      wp_die( '0' );
+    }
+    
+    if ( check_ajax_referer( 'NEHERTUTLAZIT', 'nonce', false ) ) {
+		
+		$token = $_COOKIE["agritoken"];
+		$email = $_COOKIE["agriautorise"];
+		
+
+		global $wpdb;
+		$userVerefy = $wpdb->get_results("SELECT * FROM `shop_users` WHERE `mail` = '".$email."' AND `autorizeKey` = '".$token."'");
+
+		if (empty($userVerefy) || empty($userVerefy[0]->admin)) {
+			wp_die(json_encode(array("error"=> "Верификация не пройденав")), '', 403); 
+		}
+
+		$allStat = $wpdb->get_results('SELECT `shop_users`.`name`, `shop_users`.`company_name`, `shop_users`.`inn`, `shop_zakhistory`.* FROM `shop_zakhistory` LEFT JOIN `shop_users` ON `shop_zakhistory`.`agent` = `shop_users`.`mail` where `agent` != ""');
+
+
+
+		
+	wp_die(json_encode($allStat)); 	
+
+      
+    } else {
+      wp_die( 'НО-НО-НО!', '', 403 );
+    }
+  }
 
 	
 ?>
