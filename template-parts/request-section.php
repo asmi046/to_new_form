@@ -106,7 +106,7 @@
                             </span>
                         </div>
 
-                        <div class="input-panel__field-box" >
+                        <div style = "display:none" class="input-panel__field-box" >
                             <label>
                                 <span class="caption db">Цена прохождения ТО:</span>
                                 <input v-model = "price" readonly type="text" name="price" class="inputbox pricefield" placeholder="" autocomplete="off">    
