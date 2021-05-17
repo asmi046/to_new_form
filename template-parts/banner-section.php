@@ -2,7 +2,7 @@
   <div class="inner clearfix">
     <div class="text-container">
       <h1>
-       Предварительная запись<br/>на ТЕХОСМОТР
+       Запись на<br/> ТЕХОСМОТР
       </h1>
       <ul>
         <!-- <li><span class="list-marker"></span><? echo carbon_get_theme_option("to_price"); ?> рублей</li>
