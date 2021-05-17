@@ -93,7 +93,7 @@ function my_assets_admin(){
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
 
-define("ALLVERSION", "1.0.17");
+define("ALLVERSION", "1.0.25");
 
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
@@ -125,7 +125,7 @@ add_action( 'wp_enqueue_scripts', 'my_assets' );
 			wp_enqueue_script( 'kabinet', get_template_directory_uri().'/js/cabinet.js', array(), ALLVERSION , true);
 		}
 
-		if (is_home()) { 
+		if (is_home() || is_page( array(423) ) ) { 
 			wp_enqueue_script( 'vue_form', get_template_directory_uri().'/js/vue_form.js', array(), ALLVERSION , true);
 		}
 		
