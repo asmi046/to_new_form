@@ -15,9 +15,9 @@
 
 		<?php get_template_part('template-parts/inform-section');?>
 
-		<?php get_template_part('template-parts/services-section');?>
+		<?php get_template_part('template-parts/certificates-section');?>
 
-		<?php get_template_part('template-parts/subfooter');?>
+		<?php get_template_part('template-parts/subfooter');?> 
     
 	</main>
 <?php get_footer(); ?>
