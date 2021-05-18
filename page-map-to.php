@@ -42,6 +42,8 @@ get_header(); ?>
 
         <?php get_template_part('template-parts/request-section');?>
 
+        <?php get_template_part('template-parts/certificates-section');?>
+
         <script>
 				let qCity = "<?echo $city;?>";
                 let toPunctsKursk = [
