@@ -48,14 +48,14 @@ get_header(); ?>
                     if ($city === "Курск") 
                         {
                         ?>
-                            <h2 class = "big-title textCenter">Оформите <a href = "<? echo get_the_permalink(347);?>">ОСАГО и получите</a> техосмотр бесплатно</h2>
+                            <h2 class = "big-title textCenter">Оформите <a href = "<? echo get_the_permalink(347);?>">ОСАГО на сайте</a> и получите техосмотр бесплатно</h2>
                             
                         <?
                         }
                     else 
                             {
                         ?>
-                            <h2 class = "big-title textCenter">Записывайтесь на сайте и проходите техосмотр бесплатно</h2>
+                            <h2 class = "big-title textCenter">Записывайтесь на сайте и проходите техосмотр всего за 450 рублей</h2>
                         <?
                             }
                         ?>
