@@ -545,6 +545,10 @@ Tags: TO,OSAGO
 	.main-map-page .big-title{
 		text-align: left;
 	}
+
+	.main-map-page .textCenter {
+		text-align: center;
+	}
   
   .title {
 	font-family: 'Lato-Heavy', sans-serif; }
