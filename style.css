@@ -536,6 +536,12 @@ Tags: TO,OSAGO
 	margin-bottom: 46px;
 	letter-spacing: 1px; }
 
+	.big-title a{
+		font-size: inherit;
+		color: #0078B1;
+	}
+
+
 	.main-map-page .big-title{
 		text-align: left;
 	}

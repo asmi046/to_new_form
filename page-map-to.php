@@ -42,6 +42,26 @@ get_header(); ?>
 
         <?php get_template_part('template-parts/request-section');?>
 
+        <section class = "msg_section">
+            <div class="inner">
+                <?
+                    if ($city === "Курск") 
+                        {
+                        ?>
+                            <h2 class = "big-title">Оформите <a href = "<? echo get_the_permalink(347);?>">ОСАГО и получите</a> техосмотр бесплатно</h2>
+                            
+                        <?
+                        }
+                    else 
+                            {
+                        ?>
+                            <h2 class = "big-title">Записывайтесь на сайте и проходите техосмотр бесплатно</h2>
+                        <?
+                            }
+                        ?>
+            </div>
+        </section>
+
         <?php get_template_part('template-parts/certificates-section');?>
 
         <script>
