@@ -69,6 +69,89 @@ let to_form = new Vue({
         totalNoCheced:false,
         spinerStart:false,
 
+        timetable: {
+          "A": [
+            "9:00", 
+            "9:15",
+            "9:30",
+            "9:45",
+            "10:00",
+            "10:15",
+            "10:30",
+            "10:45",
+            "11:00",
+            "11:15",
+            "11:30",
+            "11:45",
+            "12:00",
+            "12:15",
+            "12:30",
+            "12:45",
+            "13:00",
+            "13:15",
+            "13:30",
+            "13:45",
+            "14:00",
+            "14:15",
+            "14:30",
+            "14:45",
+            "15:00",
+            "15:15",
+            "15:30",
+            "15:45",
+            "16:00",
+            "16:15",
+            "16:30",
+            "16:45",
+            "17:00",
+            "17:15",
+            "17:30",
+            "17:45"
+          ],
+
+          "B":[
+            "9:00",
+            "9:30",
+            "10:00",
+            "10:30",
+            "11:00",
+            "11:30",
+            "12:00",
+            "12:30",
+            "13:00",
+            "14:00",
+            "14:30",
+            "15:00",
+            "15:30",
+            "16:00",
+            "16:30",
+            "17:00",
+            "17:30"
+          ],
+
+          "C": [
+            "9:00",
+            "10:15",
+            "11:00",
+            "12:15",
+            "13:00",
+            "14:15",
+            "15:00",
+            "16:15",
+            "17:00"
+          ],
+          "D": [
+            "9:00",
+            "10:15",
+            "11:30",
+            "12:45",
+            "14:00",
+            "15:15",
+            "16:30",
+          ]
+        },
+
+
         feildInfo: {
           "Курск": {
             city:"Курск",
@@ -181,6 +264,31 @@ let to_form = new Vue({
         if (this.feildInfo[this.city].puncts[this.kategory] == undefined)  return [];
        
         return this.feildInfo[this.city].puncts[this.kategory];
+      },
+
+      timeTableSelect: function() {
+        if (
+          (this.kategory == "Категория M1 - не более 8 мест для сидения")||
+          (this.kategory == "Категория M2 - не более 8 мест и max 5т")||
+          (this.kategory == "Категория M3 - более 8 мест и более 5т")
+        ) return this.timetable["B"];
+
+        if (
+          (this.kategory == "Категория N1 - не более 3,5т")||
+          (this.kategory == "Категория N2 - свыше 3,5 т, но не более 12т")||
+          (this.kategory == "Категория N3 - более 12т")
+        ) return this.timetable["C"];
+
+        if (
+          (this.kategory == "Категория O1 - Прицепы, маx масса не более 0,75т")||
+          (this.kategory == "Категория O3 - Прицепы, маx масса от 3,5т до 10т")||
+          (this.kategory == "Категория O4 - Прицепы, маx масса более 10т") ||
+          (this.kategory == "Категория O2 - Прицепы, маx масса от 0,75т до 3,5т")
+        ) return this.timetable["D"];
+        
+        return this.timetable["A"];
+
+        
       }
     },
 
@@ -193,7 +301,9 @@ let to_form = new Vue({
         setToPrice() {
           if (this.feildInfo[this.city] == undefined)  return ;
           if (this.feildInfo[this.city].pricing[this.kategory] == undefined)  return;
-  
+          
+          this.time = "";
+
           this.price = this.feildInfo[this.city].pricing[this.kategory];
         },
 
@@ -201,6 +311,8 @@ let to_form = new Vue({
            this.kategory = "";
            this.punct = "";
         },
+
+       
 
         sendForm() {
             this.totalNoCheced = false;
