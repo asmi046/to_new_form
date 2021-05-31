@@ -93,14 +93,14 @@ function my_assets_admin(){
 
 // Подключение стилей и nonce для Ajax и скриптов во фронтенд 
 
-define("ALLVERSION", "1.0.29");
+define("ALLVERSION", "1.0.31");
 
 add_action( 'wp_enqueue_scripts', 'my_assets' );
 	function my_assets() {
 
 		// Подключение стилей 
 
-		wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.min.js", array(), ALLVERSION, 'all'); //Лайтбокс (стили)
+		wp_enqueue_style("style-lightbox", get_template_directory_uri()."/css/lightbox.css", array(), ALLVERSION, 'all'); //Лайтбокс (стили)
 
 		//wp_enqueue_style("style-slik", get_template_directory_uri()."/css/slick.css", array(), ALLVERSION, 'all'); //Слайдер (стили)
 

@@ -95,7 +95,10 @@ var per_rus =/^([а-яё]+|[А-Я]+)$/i;
 var per_cur =/^([0-9]+)$/i;
 
 jQuery(document).ready(function() {
-	
+	lightbox.option({
+		'resizeDuration': 200,
+		'wrapAround': true
+	  });
     //    MOBIL MENU
 	let $burgerBtn = jQuery('.burger-btn'); 
 	let $greatShadow = jQuery('.great-shadow');

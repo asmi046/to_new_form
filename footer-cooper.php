@@ -8,7 +8,7 @@
             <nav class="footer-menu footer__item">
                 <ul>
                     <li><a href="<?echo get_home_url()?>">Техосмотр</a></li>
-                    <li><a href="<?echo get_home_url()?>/#services-section">Проверка карты</a></li>
+                    <li><a href="<?echo get_home_url()?>/#advantages-section">Наши преимущества</a></li>
                     <li><a href="<?echo get_the_permalink(347); ?>">ОСАГО</a></li>
                     <li><a href="<?echo get_the_permalink(350); ?>">Сотрудничество</a></li>
                     <li><a href="<?echo get_category_link(412);?>">Личный кабинет</a></li>

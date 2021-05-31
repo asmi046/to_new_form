@@ -3,7 +3,9 @@
 
   <div class="certificates__row">
     <div class="certificates__block-image">
-      <img src="<?php echo get_template_directory_uri();?>/img/certificates.jpg" alt="">
+      <a href="<?php echo get_template_directory_uri();?>/img/certificates.jpg" data-lightbox="image-1" data-title="Наш аттестат РСА">
+        <img  src="<?php echo get_template_directory_uri();?>/img/certificates.jpg" alt="">
+      </a>
     </div>
     <div class="certificates__block-text">
       <h2>

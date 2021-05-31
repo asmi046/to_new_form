@@ -1,4 +1,4 @@
-<section class="advantages-section">
+<section id = "advantages-section" class="advantages-section">
     <div class="inner2">
         <h2 class="big-title">Преимущества нашей услуги</h2>
         <div class="advantages-box">
