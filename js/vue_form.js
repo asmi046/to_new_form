@@ -269,21 +269,21 @@ let to_form = new Vue({
       timeTableSelect: function() {
         if (
           (this.kategory == "Категория M1 - не более 8 мест для сидения")||
-          (this.kategory == "Категория M2 - не более 8 мест и max 5т")||
-          (this.kategory == "Категория M3 - более 8 мест и более 5т")
+          (this.kategory == "Категория N1 - не более 3,5т")
         ) return this.timetable["B"];
-
-        if (
-          (this.kategory == "Категория N1 - не более 3,5т")||
-          (this.kategory == "Категория N2 - свыше 3,5 т, но не более 12т")||
-          (this.kategory == "Категория N3 - более 12т")
-        ) return this.timetable["C"];
 
         if (
           (this.kategory == "Категория O1 - Прицепы, маx масса не более 0,75т")||
           (this.kategory == "Категория O3 - Прицепы, маx масса от 3,5т до 10т")||
           (this.kategory == "Категория O4 - Прицепы, маx масса более 10т") ||
-          (this.kategory == "Категория O2 - Прицепы, маx масса от 0,75т до 3,5т")
+          (this.kategory == "Категория O2 - Прицепы, маx масса от 0,75т до 3,5т")||
+          (this.kategory == "Категория N2 - свыше 3,5 т, но не более 12т")||
+          (this.kategory == "Категория N3 - более 12т")
+        ) return this.timetable["C"];
+
+        if (
+          (this.kategory == "Категория M2 - не более 8 мест и max 5т")||
+          (this.kategory == "Категория M3 - более 8 мест и более 5т")
         ) return this.timetable["D"];
         
         return this.timetable["A"];
